@@ -1,18 +1,26 @@
-<div>
-    <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="email">
-    </div>
-    <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="pass">
-    </div>
-    <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="check">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <div *ngIf="errorShow" class="errorText">
-    Invalid Credentials!
-    </div>
-    <button type="submit" (click)="login()" class="btn btn-primary">Submit</button>
+<div>    
+    <form [formGroup]="credentials">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="email">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" formControlName="pass">
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <div *ngIf="credentials.controls['email'].hasError('email')" class="errorText">
+            Please specify a correct email!
+        </div>
+        <div *ngIf="credentials.controls['pass'].hasError('min') || credentials.controls['pass'].hasError('pattern')" class="errorText">
+            Please specify an 8 character long passwrod using only text, numbers and _
+        </div>
+        <div *ngIf="credentials.hasError('required')" class="errorText">
+            Please fill in all fields!
+        </div>
+        <button type="submit" (click)="login()" class="btn btn-primary">Submit</button>
+    </form>
 </div>
