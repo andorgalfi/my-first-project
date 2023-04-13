@@ -1,12 +1,7 @@
-<p>
-    {{firstName}}
-</p>
-<p>
-    {{lastName}}
-</p>
-<p>
-    {{gender}}
-</p>
-<p>
-    {{email}}
-</p>
+<div>
+    <button (click)="addCollection()">Add Collection</button>
+    <hr/>
+    <div *ngFor="let collection of collections; index as i">
+        <app-collection [data]="collection" [index]="i" (deleteUser)="deleteUser($event)"></app-collection>
+    </div>
+</div>
